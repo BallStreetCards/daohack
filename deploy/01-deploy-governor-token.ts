@@ -16,11 +16,25 @@ const deployGovernanceToken: DeployFunction = async (
     // WAIT CONFIRMATION
   });
   log(`[DEPLOYED GOVERNANCE TOKEN TO ADDRESS ${governanceToken.address}]`);
+
+  await delegate(governanceToken.address, deployer);
+  log(`[DELEGATED]`);
 };
 
+// ALLOW SOMEONE ELSE TO VOTE
 const delegate = async (
   governanceTokenAddress: string,
   delegatedAccount: string
-) => {};
+) => {
+  const governanceToken = await ethers.getContractAt(
+    "GovernanceToken",
+    governanceTokenAddress
+  );
+  const tx = await governanceToken.delegate(delegatedAccount);
+  await tx.wait(1);
+  console.log(
+    `Checkpoints ${await governanceToken.numCheckpoints(delegatedAccount)}`
+  );
+};
 
 export default deployGovernanceToken;

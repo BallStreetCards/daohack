@@ -10,6 +10,10 @@ contract Box is Ownable {
     value = newValue;
     emit ValueChanged(newValue);
   }
+  
+// // MINTING THE CARD
+// function mint(uint)
+
 // Reads the last stored value
   function retrieve() public view returns (uint256) {
     return value;

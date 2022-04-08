@@ -22,16 +22,16 @@ export const queueAndExecute = async () => {
   );
 
   const governor = await ethers.getContract("GovernorContract");
-  console.log("[QUEUEING]");
+  // console.log("[QUEUEING]");
 
-  const queueTx = await governor.queue(
-    [boxContract.address],
-    [0],
-    [encodedFunctionCall],
-    descriptionHash
-  );
+  // const queueTx = await governor.queue(
+  //   [boxContract.address],
+  //   [0],
+  //   [encodedFunctionCall],
+  //   descriptionHash
+  // );
 
-  await queueTx.wait(1);
+  // await queueTx.wait(1);
 
   // TIME TRAVEL IF DEVELOPING LOL
   if (developmentChains.includes(network.name)) {
@@ -40,7 +40,7 @@ export const queueAndExecute = async () => {
   }
 
   // WILL FAIL ON TESTNET
-  const executeTx = governor.execute(
+  const executeTx = await governor.execute(
     [boxContract.address],
     [0],
     [encodedFunctionCall],

@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add -D @nomiclabs/hardhat-ethers 'ethers@5.0.0'
+  C:\Program Files\nodejs\node.exe C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js propose
 
 PATH: 
   C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files\Oculus\Support\oculus-runtime;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\System32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Program Files\erl10.3\bin;C:\Program Files (x86)\Elixir\bin;C:\Users\Alain Nguyen\.mix\escripts;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\stripe.exe;C:\Program Files\nodejs\;C:\Gradle\gradle-7.3.3\bin;C:\Java\jdk-16.0.2+7;C:\Users\Alain Nguyen\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.8_qbz5n2kfra8p0\LocalCache\local-packages\Python38\Scripts';C:\Program Files\dotnet\;C:\Users\Alain Nguyen\anaconda3;C:\Users\Alain Nguyen\anaconda3\Library\mingw-w64\bin;C:\Users\Alain Nguyen\anaconda3\Library\usr\bin;C:\Users\Alain Nguyen\anaconda3\Library\bin;C:\Users\Alain Nguyen\anaconda3\Scripts;C:\Users\Alain Nguyen\.cargo\bin;C:\Users\Alain Nguyen\AppData\Local\Microsoft\WindowsApps;C:\Users\Alain Nguyen\AppData\Local\GitHubDesktop\bin;C:\Users\Alain Nguyen\AppData\Local\atom\bin;C:\Users\Alain Nguyen\AppData\Local\Programs\MiKTeX\miktex\bin\x64\;C:\Users\Alain Nguyen\AppData\Roaming\cabal\bin;C:\tools\ghc-9.0.1\bin;C:\tools\msys64;C:\Users\Alain Nguyen\AppData\Local\Microsoft\WindowsApps;C:\Users\Alain Nguyen\AppData\Local\Google\Cloud SDK\google-cloud-sdk\bin;C:\Program Files\heroku\bin;C:\Users\Alain Nguyen\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Alain Nguyen\AppData\Roaming\npm;C:\Program Files\JetBrains\PyCharm Community Edition 2021.3.1\bin;C:\Users\Alain Nguyen\.dotnet\tools
@@ -14,17 +14,12 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/%27ethers: Not found
-      at Request.params.callback [as _callback] (C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:67029:18)
-      at Request.self.callback (C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140883:22)
-      at Request.emit (node:events:390:28)
-      at Request.<anonymous> (C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141855:10)
-      at Request.emit (node:events:390:28)
-      at IncomingMessage.<anonymous> (C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141777:12)
-      at Object.onceWrapper (node:events:509:28)
-      at IncomingMessage.emit (node:events:402:35)
-      at endReadableNT (node:internal/streams/readable:1343:12)
-      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+  SyntaxError: D:\Documents\Work\GCT\DAO\package.json: Unexpected token / in JSON at position 1289
+      at JSON.parse (<anonymous>)
+      at C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\Alain Nguyen\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
 
 npm manifest: 
   {
@@ -62,9 +57,14 @@ npm manifest:
       "lint:fix": "solhint 'contracts/**/*.sol' --fix",
       "format": "yarn prettier --write .",
       "typechain": "yarn hardhat typechain",
-      "ci:clean": "rm -rf ./artifacts ./cache .;types"
+      "ci:clean": "rm -rf ./artifacts ./cache .;types",
+      "start": "yarn hardhat node",
+      "propose": "yarn hardhat run scripts/propose.ts --network localhost"
     }
   }
+  
+  // START TO DEPLOY
+  // PROPOSE TO TRY A PROPOSAL
 
 yarn manifest: 
   No manifest

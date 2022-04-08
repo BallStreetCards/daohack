@@ -1,9 +1,14 @@
-import { ethers } from "hardhat";
+import { ethers, network } from "hardhat";
 import {
+  developmentChains,
   FUNC,
   NEW_STORE_VALUE,
+  proposalsFile,
   PROPOSAL_DESCRIPTION,
+  VOTING_DELAY,
 } from "../hardhat-helper-config";
+import { moveBlocks } from "../utils/move-blocks";
+import * as fs from "fs";
 
 export const propose = async (
   args: any[],
@@ -26,6 +31,16 @@ export const propose = async (
     [encodedFunctionCall],
     proposalDescription
   );
+  const proposeReceipt = await proposeTx.wait(1);
+
+  // TIME TRAVEL IF DEVELOPING LOL
+  developmentChains.includes(network.name) &&
+    (await moveBlocks(VOTING_DELAY + 1));
+
+  const proposalId = proposeReceipt.events[0].args.proposalId;
+  const proposals = JSON.parse(fs.readFileSync(proposalsFile, "utf8"));
+  proposals[network.config.chainId!.toString()].push(proposalId.toString());
+  fs.writeFileSync(proposalsFile, JSON.stringify(proposals));
 };
 
 propose([NEW_STORE_VALUE], FUNC, PROPOSAL_DESCRIPTION)

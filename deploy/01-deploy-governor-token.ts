@@ -1,5 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
+import { ethers } from "hardhat";
 
 const deployGovernanceToken: DeployFunction = async (
   hre: HardhatRuntimeEnvironment
@@ -16,4 +17,10 @@ const deployGovernanceToken: DeployFunction = async (
   });
   log(`[DEPLOYED GOVERNANCE TOKEN TO ADDRESS ${governanceToken.address}]`);
 };
+
+const delegate = async (
+  governanceTokenAddress: string,
+  delegatedAccount: string
+) => {};
+
 export default deployGovernanceToken;

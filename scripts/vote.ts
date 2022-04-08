@@ -7,9 +7,10 @@ import * as fs from "fs";
 import { ethers, network } from "hardhat";
 import { moveBlocks } from "../utils/move-blocks";
 
-export const vote = async (proposalInedx: number) => {
+const index = 0;
+export const vote = async (proposalIndex: number) => {
   const proposals = JSON.parse(fs.readFileSync(proposalsFile, "utf8"));
-  const proposalId = proposals[network.config.chainId!][proposalInedx];
+  const proposalId = proposals[network.config.chainId!][proposalIndex];
   // 0 = AGAINST, 1 = FOR
   const voteWay = 1;
   const governor = await ethers.getContract("GovernorContract");
@@ -28,9 +29,9 @@ export const vote = async (proposalInedx: number) => {
     (await moveBlocks(VOTING_DELAY + 1));
 
   console.log("[VOTE SUBMITTED]");
+  console.log(voteTxResponse);
 };
 
-const index = 0;
 vote(index)
   .then(() => process.exit(0))
   .catch((err) => {

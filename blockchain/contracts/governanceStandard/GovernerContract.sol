@@ -25,14 +25,16 @@ contract GovernorContract is
   )
     Governor("GovernorContract")
     GovernorSettings(
-      1, /* 1 block */
-      45818, /* 1 week */
+      _votingDelay,
+      _votingPeriod,
       0
     )
     GovernorVotes(_token)
-    GovernorVotesQuorumFraction(4)
+    GovernorVotesQuorumFraction(_quorumPercentage)
     GovernorTimelockControl(_timelock)
-  {}
+  {
+
+  }
 
   // The following functions are overrides required by Solidity.
 

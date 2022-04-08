@@ -35,7 +35,9 @@
     "typechain": "yarn hardhat typechain",
     "ci:clean": "rm -rf ./artifacts ./cache .;types",
     "start": "yarn hardhat node",
+    "console": "yarn hardhat console --network localhost",
     "propose": "yarn hardhat run scripts/propose.ts --network localhost",
+    "mine": "yarn hardhat run utils/mine.ts --network localhost",
     "vote": "yarn hardhat run scripts/vote.ts --network localhost",
     "execute": "yarn hardhat run scripts/queue-and-execute.ts --network localhost"
   }

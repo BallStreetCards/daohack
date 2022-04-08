@@ -32,11 +32,14 @@ export const queueAndExecute = async () => {
   );
 
   await queueTx.wait(1);
-  // TIME TRAVEL IF DEVELOPING LOL
-  developmentChains.includes(network.name) &&
-    (await moveTime(MIN_DELAY + 1)) &&
-    (await moveBlocks(VOTING_DELAY + 1));
 
+  // TIME TRAVEL IF DEVELOPING LOL
+  if (developmentChains.includes(network.name)) {
+    await moveTime(MIN_DELAY + 1);
+    await moveBlocks(1);
+  }
+
+  // WILL FAIL ON TESTNET
   const executeTx = governor.execute(
     [boxContract.address],
     [0],

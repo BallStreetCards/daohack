@@ -31,16 +31,24 @@ export const propose = async (
     [encodedFunctionCall],
     proposalDescription
   );
-  const proposeReceipt = await proposeTx.wait(1);
 
-  // TIME TRAVEL IF DEVELOPING LOL
+  // TIME TRAVEL TO VOTING PERIOD IF DEVELOPING
   developmentChains.includes(network.name) &&
     (await moveBlocks(VOTING_DELAY + 1));
 
+  const proposeReceipt = await proposeTx.wait(1);
   const proposalId = proposeReceipt.events[0].args.proposalId;
   const proposals = JSON.parse(fs.readFileSync(proposalsFile, "utf8"));
   proposals[network.config.chainId!.toString()].push(proposalId.toString());
   fs.writeFileSync(proposalsFile, JSON.stringify(proposals));
+
+  // INFO
+  const proposalState = await governor.state(proposalId);
+  const proposalSnapShot = await governor.proposalSnapshot(proposalId);
+  const proposalDeadline = await governor.proposalDeadline(proposalId);
+  console.log(`Current Proposal State: ${proposalState}`); // 1 = NOT PASSED, 0 = PASSED
+  console.log(`Current Proposal Snapshot: ${proposalSnapShot}`); // WHAT BLOCK THE PROPOSAL WAS SNAPSHOT
+  console.log(`Current Proposal Deadline: ${proposalDeadline}`); // BLOCK NUMBER VOTING EXPIRES
 };
 
 propose([NEW_STORE_VALUE], FUNC, PROPOSAL_DESCRIPTION)

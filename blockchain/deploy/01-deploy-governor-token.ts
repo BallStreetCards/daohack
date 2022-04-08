@@ -1,6 +1,7 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { ethers } from "hardhat";
+import { networkConfig } from "../hardhat-helper-config";
 
 const deployGovernanceToken: DeployFunction = async (
   hre: HardhatRuntimeEnvironment
@@ -14,6 +15,7 @@ const deployGovernanceToken: DeployFunction = async (
     args: [],
     log: true,
     // WAIT CONFIRMATION
+    waitConfirmations: networkConfig[network.name].blockConfirmations || 1,
   });
   log(`[DEPLOYED GOVERNANCE TOKEN TO ADDRESS ${governanceToken.address}]`);
 
@@ -38,3 +40,4 @@ const delegate = async (
 };
 
 export default deployGovernanceToken;
+deployGovernanceToken.tags = ["all", "governor"];

@@ -1,0 +1,56 @@
+// app global css in SCSS form
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@font-face {
+  font-family: 'JostOutlined';
+  src: URL('jostblack.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'JostOutlined';
+  src: URL('jostblack.ttf') format('truetype');
+}
+html {
+  font-family: 'Jost', sans-serif;
+  font-size: 18px;
+  background-color: white;
+}
+body {
+  font-family: 'Jost', sans-serif;
+}
+
+// app global css in SCSS form
+.container {
+  max-width: 1200px;
+}
+.fn-xl {
+  font-size: 50pt;
+  line-height: 45pt;
+}
+.fn-lg {
+  font-size: 24pt;
+}
+.fn-md {
+  font-size: 14pt;
+}
+.fn-sm {
+  font-size: 12pt;
+}
+.fn-xs {
+  font-size: 10pt;
+}
+.fn-300 {
+  font-weight: 300;
+}
+.fn-thin {
+  font-weight: 400;
+}
+.fn-bold {
+  font-weight: bold;
+}
+.fn-500 {
+  font-weight: 500;
+}
+.fn-800 {
+  font-weight: 800;
+}

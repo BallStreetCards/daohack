@@ -35,7 +35,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { propose } from './../../../blockchain/scripts/propose';
+import { propose } from '../../../scripts/propose';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -47,8 +47,8 @@ export default defineComponent({
       listedPrice: '',
     });
 
-    const submitProposal = () => {
-      propose([cardName, cardImg, cardVerificationURL, listedPrice], "");
+    const submitProposal = async () => {
+      await propose([cardName, cardImg, cardVerificationURL, listedPrice], '');
     };
     return { form };
   },

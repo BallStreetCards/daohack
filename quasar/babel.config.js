@@ -2,6 +2,7 @@
 
 module.exports = (api) => {
   return {
+    target: 'node',
     presets: [
       [
         '@quasar/babel-preset-app',

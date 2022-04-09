@@ -1,13 +1,12 @@
 <template>
-  <router-view />
+  <q-img :src="content" fit="contain"></q-img>
 </template>
+
 <script lang="ts">
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'App',
-  setup() {
-    return;
-  },
+  name: 'ImageRenderer',
+  props: { content: String },
 });
 </script>

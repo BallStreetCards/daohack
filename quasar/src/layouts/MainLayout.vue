@@ -4,13 +4,22 @@
       <div class="container row justify-between items-center q-py-sm q-mx-auto">
         <img class="logo" src="/favicon.svg" alt="BallStreet" />
         <div class="text-black">
-          <q-btn
+          <q-btn-dropdown
             flat
-            class="text-white bg-accent"
-            no-caps
             v-if="accounts.length"
-            >{{ accounts[0]?.substring(0, 8) }}...</q-btn
+            color="primary"
+            no-caps
+            :label="`${accounts[0]?.substring(0, 8)}...`"
           >
+            <q-list flat>
+              <q-item clickable v-close-popup @click="disconnectWallet">
+                <q-item-section>
+                  <q-item-label>Disconnect</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+
           <q-btn v-else flat class="text-white bg-accent" @click="connectWallet"
             >Connect Wallet</q-btn
           >
@@ -44,8 +53,11 @@ export default defineComponent({
     async function connectWallet() {
       await ethers.value.enable?.();
     }
+    async function disconnectWallet() {
+      // await ethers.value.dis
+    }
     const accounts = computed(() => ethers.value.accounts);
-    return { connectWallet, ethers, accounts };
+    return { connectWallet, ethers, accounts, disconnectWallet };
   },
 });
 </script>

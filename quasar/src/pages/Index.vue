@@ -14,7 +14,14 @@
             </div>
             <div class="col-5 column q-col-gutter-md q-pa-xl">
               <q-input label="Card name" v-model="form.cardName" />
-              <q-input label="Card image URL" v-model="form.cardImg" />
+
+              <div>
+                <div class="text-grey-6 fn-sm">Card image</div>
+                <q-card flat bordered class="q-pa-md">
+                  <media-input v-model="form.cardImg" />
+                </q-card>
+              </div>
+
               <q-input
                 label="Card verification URL"
                 v-model="form.cardVerificationURL"
@@ -34,11 +41,12 @@
 </template>
 
 <script lang="ts">
+import MediaInput from 'src/forms/form/MediaInput.vue';
 import { defineComponent, ref } from 'vue';
-import { propose } from '../../../scripts/propose';
 
 export default defineComponent({
   name: 'PageIndex',
+  components: { MediaInput },
   setup() {
     const form = ref({
       cardName: '',
@@ -47,9 +55,9 @@ export default defineComponent({
       listedPrice: '',
     });
 
-    const submitProposal = async () => {
-      await propose([cardName, cardImg, cardVerificationURL, listedPrice], '');
-    };
+    // const submitProposal = async () => {
+    //   await propose([cardName, cardImg, cardVerificationURL, listedPrice], '');
+    // };
     return { form };
   },
 });

@@ -11,8 +11,7 @@
     "strict": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["es2017"],
-    "declarationMap": true
+    "lib": ["es2017"]
   },
   "include": ["./scripts", "./test", "./deploy", "./deploy-helpers"],
   "files": ["./hardhat.config.ts", "./hardhat-helper-config.ts"]

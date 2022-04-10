@@ -25,10 +25,16 @@ db.collection("proposals").onSnapshot(async (snap) => {
     const proposalId = await propose(
       [docData.cardName],
       "mint", // mintCard
-      `Mint card ${JSON.stringify(docData)}`,
+      `Mint card ${doc.id}`,
       deployer
     );
-    await doc.ref.update({ proposalId });
+    await doc.ref.update({ proposalId, status: "proposed" });
+  });
+
+  const docsToMint = snap.docs.filter((doc) => doc.data().status === "mint");
+
+  docsToMint.forEach(async (doc) => {
+    await execute(doc.id);
   });
 });
 
@@ -38,10 +44,10 @@ async function execute(proposalId: string) {
   await queueAndExecute(
     [docData.cardName],
     "mint", // mintCard
-    `Mint card ${JSON.stringify(docData)}`
+    `Mint card ${doc.id}`
   );
   const result = await doc.ref.update({ proposalId });
-  await doc.ref.update({ result });
+  await doc.ref.update({ result, status: "executed" });
 }
 
 db.collection("votes").onSnapshot(async (snap) => {
@@ -62,8 +68,11 @@ db.collection("votes").onSnapshot(async (snap) => {
 
     const proposalDoc = await db
       .collection("proposals")
-      .doc(docData.proposalId)
+      .doc(docData.docId)
       .get();
-    await proposalDoc.ref.update({ votes: FieldValue.increment(1) });
+    await proposalDoc.ref.update({
+      votes: FieldValue.increment(1),
+      status: "voted",
+    });
   });
 });

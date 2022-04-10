@@ -9,7 +9,7 @@
             v-if="accounts.length"
             color="primary"
             no-caps
-            :label="`${accounts[0]?.substring(0, 8)}...`"
+            :label="`${accounts[0]}`"
           >
             <q-list flat>
               <q-item clickable v-close-popup @click="disconnectWallet">
@@ -54,7 +54,7 @@ export default defineComponent({
       await ethers.value.enable?.();
     }
     async function disconnectWallet() {
-      // await ethers.value.dis
+      // await ethers.value
     }
     const accounts = computed(() => ethers.value.accounts);
     return { connectWallet, ethers, accounts, disconnectWallet };

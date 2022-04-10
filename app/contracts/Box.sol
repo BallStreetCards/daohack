@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
-import "@openzeppelin/contracts/access/Ownable.sol";
 
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "./SubDAO.sol";
 
 contract Box is Ownable {
   uint256 private value;
@@ -16,8 +17,8 @@ contract Box is Ownable {
   }
   
   // MINTING THE CARD
-  function mint(string memory name) public onlyOwner {
-
+  function mint(string memory name) public onlyOwner returns (SubDAOProxy) {
+    return new SubDAOProxy(name);
   }
 
   // Reads the last stored value

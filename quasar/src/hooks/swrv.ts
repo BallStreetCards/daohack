@@ -192,6 +192,7 @@ export function useSWRV<D, K extends SWRVKey, E = Error>(
 
         unsubscribe = await observable({
           next: (next) => {
+            console.log('next', next);
             const rawData = markRawSafe(next) as UnwrapRef<D>;
             result.data = rawData;
             result.error = undefined;

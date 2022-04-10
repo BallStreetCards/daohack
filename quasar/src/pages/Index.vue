@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-py-xl">
     <div class="container q-mx-auto q-mt-lg">
-      <h2 class="fn-lg fn-bold q-ma-none">SUBMIT CARD PROPOSALS</h2>
+      <h2 class="fn-lg fn-bold q-ma-none">NEW CARD PROPOSAL</h2>
 
       <div>
         <q-card bordered flat class="q-pa-md">
@@ -26,10 +26,18 @@
                 label="Card verification URL"
                 v-model="form.cardVerificationURL"
               />
-              <q-input label="Listing price" v-model="form.listedPrice" />
+              <q-input
+                type="number"
+                label="Card value (ETH)"
+                v-model="form.listedPrice"
+              />
               <div class="q-mt-md">
-                <q-btn class="fit bg-orange text-white q-py-sm" flat border
-                  >PROPOSE FOR REVIEW</q-btn
+                <q-btn
+                  class="fit bg-orange text-white q-py-sm"
+                  flat
+                  border
+                  @click="submitProposal"
+                  >Create proposal</q-btn
                 >
               </div>
             </div>
@@ -43,6 +51,8 @@
 <script lang="ts">
 import MediaInput from 'src/forms/form/MediaInput.vue';
 import { defineComponent, ref } from 'vue';
+import firebase from 'firebase';
+import 'firebase/firestore';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -55,10 +65,11 @@ export default defineComponent({
       listedPrice: '',
     });
 
-    // const submitProposal = async () => {
-    //   await propose([cardName, cardImg, cardVerificationURL, listedPrice], '');
-    // };
-    return { form };
+    const submitProposal = async () => {
+      await firebase.firestore().collection('proposals').add(form.value);
+      // await propose([cardName, cardImg, cardVerificationURL, listedPrice], '');
+    };
+    return { form, submitProposal };
   },
 });
 </script>

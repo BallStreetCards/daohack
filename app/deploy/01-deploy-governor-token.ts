@@ -8,7 +8,7 @@ const deployGovernanceToken: DeployFunction = async (
 ) => {
   const { getNamedAccounts, deployments, network } = hre;
   const { deploy, log } = deployments;
-  const { deployer } = await getNamedAccounts();
+  const { deployer, member1 } = await getNamedAccounts();
   log("[DEPLOYING GOVERNANCE TOKEN]");
   const governanceToken = await deploy("GovernanceToken", {
     from: deployer,
@@ -19,24 +19,43 @@ const deployGovernanceToken: DeployFunction = async (
   });
   log(`[DEPLOYED GOVERNANCE TOKEN TO ADDRESS ${governanceToken.address}]`);
 
-  await delegate(governanceToken.address, deployer);
+  await transfer(
+    /*governanceToken.address,*/
+    member1,
+    "600000000000000000000000"
+  );
+  await delegate(deployer);
   log(`[DELEGATED]`);
 };
 
 // ALLOW SOMEONE ELSE TO VOTE
 const delegate = async (
-  governanceTokenAddress: string,
+  // governanceTokenAddress: string,
   delegatedAccount: string
 ) => {
-  const governanceToken = await ethers.getContractAt(
-    "GovernanceToken",
-    governanceTokenAddress
+  const governanceToken = await ethers.getContract(
+    "GovernanceToken"
+    // governanceTokenAddress
   );
   const tx = await governanceToken.delegate(delegatedAccount);
   await tx.wait(1);
   console.log(
     `Checkpoints ${await governanceToken.numCheckpoints(delegatedAccount)}`
   );
+};
+
+// ALLOW SOMEONE ELSE TO VOTE
+const transfer = async (
+  // governanceTokenAddress: string,
+  delegatedAccount: string,
+  amount: string
+) => {
+  const governanceToken = await ethers.getContract(
+    "GovernanceToken"
+    // governanceTokenAddress
+  );
+  const tx = await governanceToken.transfer(delegatedAccount, amount);
+  await tx.wait(1);
 };
 
 export default deployGovernanceToken;

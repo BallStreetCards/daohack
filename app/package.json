@@ -26,6 +26,8 @@
     "solidity-coverage": "^0.7.18",
     "ts-node": "^10.4.0",
     "typechain": "^7.0.0",
+    "firebase-admin": "^10.0.2",
+    "hardhat-ethernal": "^0.7.0",
     "typescript": "^4.5.5"
   },
   "scripts": {
@@ -39,6 +41,8 @@
     "propose": "yarn hardhat run scripts/propose.ts --network localhost",
     "mine": "yarn hardhat run utils/mine.ts --network localhost",
     "vote": "yarn hardhat run scripts/vote.ts --network localhost",
-    "execute": "yarn hardhat run scripts/queue-and-execute.ts --network localhost"
-  }
+    "execute": "yarn hardhat run scripts/queue-and-execute.ts --network localhost",
+    "firestore": "yarn hardhat run scripts/firestore.ts --network localhost"
+  },
+  "dependencies": {}
 }

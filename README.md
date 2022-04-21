@@ -1,6 +1,7 @@
 # Ball Street Daohack PoC
 
-https://hack.ethglobal.com/daohacks project submition
+Project submission for:
+https://www.encode.club/hack
 
 ## Blockchain
 All blockchain related code can be found under "/app"

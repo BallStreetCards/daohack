@@ -1,7 +1,7 @@
 import { ethers, network } from "hardhat";
 import {
   developmentChains,
-  FUNC,
+  STORE,
   MIN_DELAY,
   networkConfig,
   NEW_STORE_VALUE,
@@ -78,17 +78,17 @@ export const propose = async (
   signer?: string
 ): Promise<string> => {
   const governor = await ethers.getContract("GovernorContract", signer);
-  const boxContract = await ethers.getContract("Box");
-  const encodedFunctionCall = boxContract.interface.encodeFunctionData(
+  const daoContract = await ethers.getContract("MainAOs");
+  const encodedFunctionCall = daoContract.interface.encodeFunctionData(
     functionToCall,
     args
   );
   console.log(
-    `[PROPOSING ${functionToCall} on ${boxContract.address} with args [${args}] ]`
+    `[PROPOSING ${functionToCall} on ${daoContract.address} with args [${args}] ]`
   );
   console.log(`[PROPOSAL DESCRIPTION: ${proposalDescription}]`);
   const proposeTx = await governor.propose(
-    [boxContract.address],
+    [daoContract.address],
     [0],
     [encodedFunctionCall],
     proposalDescription
@@ -119,11 +119,11 @@ export const propose = async (
 
 export const queueAndExecute = async (
   args: any[] = [NEW_STORE_VALUE],
-  functionToCall: string = FUNC,
+  functionToCall: string = STORE,
   proposalId = PROPOSAL_DESCRIPTION
 ) => {
-  const boxContract = await ethers.getContract("Box");
-  const encodedFunctionCall = boxContract.interface.encodeFunctionData(
+  const daoContract = await ethers.getContract("MainDAO");
+  const encodedFunctionCall = daoContract.interface.encodeFunctionData(
     functionToCall,
     args
   );
@@ -135,7 +135,7 @@ export const queueAndExecute = async (
   console.log("[QUEUEING]");
 
   const queueTx = await governor.queue(
-    [boxContract.address],
+    [daoContract.address],
     [0],
     [encodedFunctionCall],
     descriptionHash
@@ -151,13 +151,13 @@ export const queueAndExecute = async (
 
   // WILL FAIL ON TESTNET
   const executeTx = await governor.execute(
-    [boxContract.address],
+    [daoContract.address],
     [0],
     [encodedFunctionCall],
     descriptionHash
   );
   await executeTx.wait(1);
-  const boxNewValue = await boxContract.retrieve();
+  const boxNewValue = await daoContract.retrieve();
   console.log(`[BOX VALUE]: ${boxNewValue.toString()}`);
 
   return boxNewValue;

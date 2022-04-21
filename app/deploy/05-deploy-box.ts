@@ -2,21 +2,23 @@ import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
 import { ethers } from "hardhat";
 
-const deployBox: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
+const deployMainDAO: DeployFunction = async (
+  hre: HardhatRuntimeEnvironment
+) => {
   const { getNamedAccounts, deployments } = hre;
   const { deploy, log, get } = deployments;
   const { deployer } = await getNamedAccounts();
-  log("[DEPLOYING BOX]");
-  const boxDeployment = await deploy("Box", {
+  log("[DEPLOYING MAIN DAO]");
+  const daoDeployment = await deploy("MainDAO", {
     from: deployer,
     args: [],
     log: true,
   });
   const timeLock = await ethers.getContract("TimeLock");
-  const boxContract = await ethers.getContract("Box");
+  const daoContract = await ethers.getContract("MainDAO");
 
-  const transferOwnerTx = await boxContract.transferOwnership(timeLock.address);
+  const transferOwnerTx = await daoContract.transferOwnership(timeLock.address);
   await transferOwnerTx.wait(1);
-  log("[TRANSFERRED BOX TO TIMELOCK]");
+  log("[TRANSFERRED MAINDAO TO TIMELOCK]");
 };
-export default deployBox;
+export default deployMainDAO;

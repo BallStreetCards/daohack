@@ -141,10 +141,10 @@ export default defineComponent({
     const accounts = computed(() => ethers.value.accounts);
 
     const form = ref({
-      cardName: '',
+      cardName: '2020-21 Panini Select - Teal White Pink #63 LaMelo Ball SN49',
       cardImg: '',
-      cardVerificationURL: '',
-      listedPrice: '',
+      cardVerificationURL: 'https://www.psacard.com/cert/63594751',
+      listedPrice: '1337',
       status: 'drafted',
     });
     const reason = ref('');

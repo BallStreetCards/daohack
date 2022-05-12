@@ -9,6 +9,8 @@
 /* eslint-env node */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { configure } = require('quasar/wrappers');
+const buffer = require('buffer');
+const webpack = require('webpack');
 
 module.exports = configure(function (ctx) {
   return {
@@ -28,7 +30,7 @@ module.exports = configure(function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
-    boot: ['axios', 'firebase'],
+    boot: ['near', 'firebase'],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
     css: ['app.scss'],
@@ -49,7 +51,8 @@ module.exports = configure(function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      distDir: '../firebase/dist',
+      vueRouterMode: 'history', // available values: 'hash', 'history'
 
       // transpile: false,
       // publicPath: '/',
@@ -70,7 +73,13 @@ module.exports = configure(function (ctx) {
 
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack(/* chain */) {
+      extendWebpack(cfg) {
+        cfg.plugins.push(
+          new webpack.ProvidePlugin({
+            Buffer: ['buffer', 'Buffer'],
+          })
+        );
+      }, chainWebpack(/* chain */) {
         //
       },
     },
@@ -80,7 +89,7 @@ module.exports = configure(function (ctx) {
       server: {
         type: 'http',
       },
-      port: 8080,
+      port: 8082,
       open: true, // opens browser window automatically
     },
 

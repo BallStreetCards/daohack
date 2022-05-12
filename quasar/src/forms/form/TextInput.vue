@@ -2,7 +2,6 @@
   <q-input
     :required="isRequired"
     color="white"
-    dark
     filled
     v-bind="$attrs"
     v-model="content"

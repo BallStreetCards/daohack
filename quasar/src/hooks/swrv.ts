@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { isFunction, isPlainObject } from '@vue/shared';
-import { SWRVCache } from 'swrv';
+import SWRVCache from 'src/services/cache';
 import { markRaw, reactive, Ref, toRefs, UnwrapRef, watchEffect } from 'vue';
 
 // Minimal reimplementation of SWR for Vue3
@@ -192,7 +193,6 @@ export function useSWRV<D, K extends SWRVKey, E = Error>(
 
         unsubscribe = await observable({
           next: (next) => {
-            console.log('next', next);
             const rawData = markRawSafe(next) as UnwrapRef<D>;
             result.data = rawData;
             result.error = undefined;

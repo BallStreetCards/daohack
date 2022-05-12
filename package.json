@@ -1,9 +1,33 @@
 {
   "name": "ballstreet-dao",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "description": "",
+  "productName": "Ball Street DAO  PoC",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "yarn --cwd ./quasar run lint && yarn --cwd ./firebase/functions run lint",
+    "test": "yarn --cwd ./quasar run test && yarn --cwd ./firebase/functions run test",
+    "deploy": "yarn --cwd ./quasar quasar build && cd firebase && firebase deploy",
+    "deploy:functions": "cd firebase && firebase deploy --only functions",
+    "deploy:quasar": "yarn --cwd ./quasar quasar build && cd firebase && firebase deploy --only hosting",
+    "start:quasar": "yarn --cwd ./quasar quasar dev",
+    "start:functions": "yarn --cwd ./firebase/functions run serve",
+    "start:near": "cd ./firebase/functions && ts-node main.ts"
   },
-  "author": "",
-  "license": "ISC"
+  "browserslist": [
+    "last 10 Chrome versions",
+    "last 10 Firefox versions",
+    "last 4 Edge versions",
+    "last 7 Safari versions",
+    "last 8 Android versions",
+    "last 8 ChromeAndroid versions",
+    "last 8 FirefoxAndroid versions",
+    "last 10 iOS versions",
+    "last 5 Opera versions"
+  ],
+  "engines": {
+    "node": ">= 12.22.1",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
 }

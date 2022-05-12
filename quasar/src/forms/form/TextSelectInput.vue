@@ -3,7 +3,6 @@
     :required="isRequired"
     v-model="content"
     color="white"
-    dark
     use-input
     hide-selected
     fill-input
